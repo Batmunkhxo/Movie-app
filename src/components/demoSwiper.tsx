@@ -11,6 +11,7 @@ type Movie = {
   backdrop_path: string;
   original_title: string;
   overview: string;
+  vote_average: number;
 };
 const SwiperSection = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -46,15 +47,25 @@ const SwiperSection = () => {
         {movies.map((movie) => (
           <SwiperSlide
             key={movie.id}
-            className="flex items-center justify-center"
+            className="relative"
           >
-            <p className="w-[400px] h-[200px] absolute">{movie.overview}</p>
+            <div className="flex w-[20%] absolute flex-col justify-items-start p-5 space-y-4 pt-[150px] pl-[100px]">
+
+
+            <p className="text-sm text-white">Now playing:</p>
+            <h1 className="text-2x1 font-medium font-bold text-white">
+              {movie.original_title}
+            </h1>
+            <p className="text-sm text-white">⭐{movie.vote_average.toFixed(1)}/10</p>
+            <p className="text-l line-clamp-5 font-normalmfont-inter text-white"></p>
+            <p className="w-[400px] h-[200px] text-white">{movie.overview}</p>
+            {}
+            </div>
             <img
               src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
               alt={movie.original_title}
               className=" w-full h-[600px] object-cover"
             />
-            {}
           </SwiperSlide>
         ))}
       </Swiper>
