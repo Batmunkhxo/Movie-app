@@ -8,8 +8,9 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Genre from "@/components/genreButton";
 import { Upcoming } from "@/components/upcoming";
+import SwiperSection from "@/components/DemoSwiper";
 // import { DemoSwiper } from "@/components/demoSwiper";
-import SwiperSection from "@/components/demoSwiper";
+// import SwiperSection from "@/components/DemoSwiper";
 
 export default function Home() {
   const { setTheme, theme } = useTheme();
