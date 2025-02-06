@@ -1,12 +1,11 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import { useEffect, useState } from "react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
-import { useRouter } from "next/navigation";
 import ReactPlayer from "react-player";
+
 import {
   Dialog,
   DialogContent,
@@ -23,9 +22,11 @@ type Movie = {
   overview: string;
   vote_average: number;
 };
+
+
 const SwiperSection = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [trailer, setTrailer] = useState([]);
+  const [trailer, setTrailer] = useState<string[]>([]);
   const [movieId, setMovieId] = useState([]);
   const apiKey = "db430a8098715f8fab36009f57dff9fb";
   const baseUrl = "https://api.themoviedb.org/3";
@@ -36,7 +37,7 @@ const SwiperSection = () => {
       const response = await fetch(mainUrl);
       const result = await response.json();
       const movies = result.results;
-      const movieId = movies.map((el) => {
+      const movieId = movies.map((el: { id: any }) => {
         return el.id;
       });
       setMovieId(movieId);
@@ -45,31 +46,6 @@ const SwiperSection = () => {
       console.log(error);
     }
   };
-  //   console.log(movieId)
-
-  // console.log(trailerUrl)
-  // .find(
-  //     (video: any) => video.type === "Trailer" && video.site === "Youtube"
-  // );
-
-  //   const getMovieTrailer = async () => {
-  //     console.log(trailerUrl);
-  //     try {
-  //       const response = await fetch(trailerUrl);
-  //       const result = await response.json();
-  //       const trailer = result.results;
-  //     //   console.log(trailer);
-  //       setTrailer(trailer);
-  //       //   console.log(response)
-  //     } catch (error) {
-  //       console.log("Error fetching trailer:", error);
-  //     }
-  // }
-
-  // const router = useRouter()
-
-  // const trailerUrl = `${baseUrl}/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`;
-
   const getOnclickId = (id: string) => {
     setMovieId(id);
   };
@@ -88,7 +64,7 @@ const SwiperSection = () => {
           const zuvTrailerUrl = `https://www.youtube.com/watch?v=${trailer.key}`;
 
           setTrailer(zuvTrailerUrl);
-        } catch (error) {
+        } catch (error) { 
           console.log(error);
         }
       };
@@ -97,11 +73,13 @@ const SwiperSection = () => {
     }
   }, [movieId, apiKey]);
 
+  console.log(trailer)
+
   useEffect(() => {
     getMovies();
   }, []);
 
-  console.log(trailer, "xe");
+  console.log(trailer);
 
   return (
     <div className="w-full h-[600px] mt-5 flex items-center">
@@ -124,22 +102,25 @@ const SwiperSection = () => {
               </p>
               <p className="text-l line-clamp-5 font-normalmfont-inter text-white"></p>
               <p className="w-[400px] h-[200px] text-white">{movie.overview}</p>
-              {/* <button onClick={() => getOnclickId(String(movie.id))}
-                className="w-9 h-9 bg-white rounded">
-                play
-     
-              </button> */}
               <Dialog>
-                <DialogTrigger className="flex gap-[5px] "  onClick={() => getOnclickId(String(movie.id))}>icon 
-                    <p>play trailer</p>
+                <DialogTrigger
+                  className="flex gap-[5px] "
+                  onClick={() => getOnclickId(String(movie.id))}
+                >
+                  icon
+                  <p>play trailer</p>
                 </DialogTrigger>
-                <DialogContent>
-                <ReactPlayer
-          className='react-player'
-          url={trailer}
-          width='100%'
-          height='100%'
-        />
+                <DialogContent className="w-full h-[300px]">
+                  <DialogTitle>
+                    {<p>{movie.original_title}</p>}
+                  </DialogTitle>
+
+                  <ReactPlayer
+                    className="react-player"
+                    url={trailer}
+                    width="100%"
+                    height="100%"
+                  />
                 </DialogContent>
               </Dialog>
             </div>
@@ -154,6 +135,4 @@ const SwiperSection = () => {
     </div>
   );
 };
-
-// onClick={()=>getOnclickId(movie.id)}
 export default SwiperSection;

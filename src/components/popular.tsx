@@ -9,14 +9,14 @@ type Movie = {
   original_title: string;
   vote_average: number;
 };
-export const Upcoming = () => {
+export const Popular = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const apiKey =  "db430a8098715f8fab36009f57dff9fb";
   const baseUrl = "https://api.themoviedb.org/3";
-  const upcomingUrl = `${baseUrl}/movie/upcoming?language=en-US&page=1&api_key=${apiKey}`;
+  const popularUrl = `${baseUrl}/movie/popular?language=en-US&page=1&api_key=${apiKey}`;
   const getMovies = async () => {
     try {
-      const response = await fetch(upcomingUrl);
+      const response = await fetch(popularUrl);
       const result = await response.json();
       const movies = result.results;
       setMovies(movies);
@@ -32,10 +32,10 @@ export const Upcoming = () => {
 
   return (
     <>
-      <section className="w-full max-w-screen-xl bg-black-600 page-primary py-8 lg:py-13 space-y-8 lg:space-y-13 h-screen m-auto">
+      <section className="w-full max-w-screen-xl bg-black-600 page-primary py-8 lg:py-13 space-y-8 lg:space-y-13 h-screen m-auto mt-[-160px]">
         <div className="flex justify-between items-center">
-          <h3 className="text-foreground text-2xl font-semi-bold">Upcoming</h3>
-          <Link href={`/category/upcoming`}>
+          <h3 className="text-foreground text-2xl font-semi-bold">Popular</h3>
+          <Link href={`/category/popular`}>
             <button className="text-foreground text-2xl font-semibold items-center flex">
               See more
               <ArrowRightIcon/>
