@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { PlayIcon } from "lucide-react";
 
 type Movie = {
   id: number;
@@ -107,8 +108,11 @@ const SwiperSection = () => {
                   className="flex gap-[5px] "
                   onClick={() => getOnclickId(String(movie.id))}
                 >
-                  icon
-                  <p>play trailer</p>
+                  <div className=" bg-white dark:bg-gray-900 hover:bg-gray-800 p-1.5 gap-2 rounded-lg flex">
+                  <PlayIcon/>
+                  <p>Watch Trailer</p>
+
+                  </div>
                 </DialogTrigger>
                 <DialogContent className="w-full h-[300px]">
                   <DialogTitle>
